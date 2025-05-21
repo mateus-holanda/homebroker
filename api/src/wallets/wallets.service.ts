@@ -13,8 +13,8 @@ export class WalletsService {
     private walletAssetSchema: Model<WalletAsset>,
   ) {}
 
-  create(createWalletDto: CreateWalletDto) {
-    return this.walletSchema.create(createWalletDto);
+  create(data: CreateWalletDto) {
+    return this.walletSchema.create(data);
   }
 
   findAll() {

@@ -9,8 +9,8 @@ import { Asset } from './entities/asset.entity';
 export class AssetsService {
   constructor(@InjectModel(Asset.name) private assetSchema: Model<Asset>) {}
 
-  create(createAssetDto: CreateAssetDto) {
-    return this.assetSchema.create(createAssetDto);
+  create(data: CreateAssetDto) {
+    return this.assetSchema.create(data);
   }
 
   findAll() {
@@ -21,8 +21,8 @@ export class AssetsService {
     return this.assetSchema.findOne({ symbol });
   }
 
-  update(symbol: string, updateAssetDto: UpdateAssetDto) {
-    return this.assetSchema.findOneAndUpdate({ symbol }, updateAssetDto);
+  update(symbol: string, data: UpdateAssetDto) {
+    return this.assetSchema.findOneAndUpdate({ symbol }, data);
   }
 
   remove(symbol: string) {
