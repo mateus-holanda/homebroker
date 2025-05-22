@@ -4,10 +4,10 @@ POST http://localhost:3000/assets
 Content-Type: application/json
 
 {
-  "name": "Amazon",
-  "symbol": "AMZN",
-  "price": 100,
-  "image": "AMZN.png"
+  "name": "Google",
+  "symbol": "GOOGL",
+  "price": 24,
+  "image": "GOOGL.png"
 }
 
 ###
@@ -26,11 +26,11 @@ POST http://localhost:3000/wallets
 ###
 @walletId = {{ createWallet.response.body._id }}
 
-###
+###s
 GET http://localhost:3000/wallets
 
 ###
-GET http://localhost:3000/wallets/{{ walletId }}
+GET http://localhost:3000/wallets/7f019676-c48a-481e-a4d5-38db84fda9c0
 
 ###
 POST http://localhost:3000/wallets/{{ walletId }}/assets
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 {
   "assetId": "{{ assetId }}",
-  "shares": 100
+  "shares": 80
 }
 
 ###
