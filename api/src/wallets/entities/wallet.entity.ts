@@ -12,7 +12,7 @@ export class Wallet {
 
   @Prop({
     type: [mongoose.Schema.Types.String],
-    set: (v) => [...new Set(v)],
+    set: (v: Iterable<unknown>) => [...new Set(v)],
     ref: WalletAsset.name,
   })
   assets: WalletAssetDocument[] | string[];
