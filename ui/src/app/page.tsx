@@ -2,14 +2,18 @@ import { Wallet } from "@/models";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 import { AssetBox } from "./components/asset-box";
 
+interface MyWalletPageProps {
+  searchParams: Promise<{ wallet_id: string}>;
+};
+
 export async function getMyWallet(walletId: string): Promise<Wallet> {
   const response = await fetch(`http://localhost:3000/wallets/${walletId}`);
   return response.json();
 }
 
-export default async function MyWalletPage({ searchParams }: { searchParams: Promise<{ wallet_id: string}> }) {
-  const { wallet_id } = await searchParams;
-  const wallet = await getMyWallet(wallet_id);
+export default async function MyWalletPage({ searchParams }: MyWalletPageProps) {
+  const { wallet_id: walletId } = await searchParams;
+  const wallet = await getMyWallet(walletId);
 
   return (
     <div className="flex flex-col flex-grow space-y-5">
