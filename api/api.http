@@ -3,12 +3,47 @@
 POST http://localhost:3000/assets
 Content-Type: application/json
 
-{
-  "name": "Google",
-  "symbol": "GOOGL",
-  "price": 24,
-  "image": "GOOGL.png"
-}
+#{
+#  "name": "Amazon",
+#  "symbol": "AMZN",
+#  "price": 18,
+#  "image": "AMZN.png"
+#}
+
+#{
+#  "name": "Meta",
+#  "symbol": "META",
+#  "price": 20,
+#  "image": "META.png"
+#}
+
+#{
+#  "name": "Google",
+#  "symbol": "GOOGL",
+#  "price": 24,
+#  "image": "GOOGL.png"
+#}
+
+#{
+#  "name": "SalesForce",
+#  "symbol": "CRM",
+#  "price": 8,
+#  "image": "CRM.png"
+#}
+
+#{
+#  "name": "Coca-Cola",
+#  "symbol": "KO",
+#  "price": 17,
+#  "image": "KO.png"
+#}
+
+#{
+#  "name": "McDonald's",
+#  "symbol": "MCD",
+#  "price": 15,
+#  "image": "MCD.png"
+#}
 
 ###
 @assetId = {{ createAsset.response.body._id }}
@@ -30,7 +65,7 @@ POST http://localhost:3000/wallets
 GET http://localhost:3000/wallets
 
 ###
-GET http://localhost:3000/wallets/7f019676-c48a-481e-a4d5-38db84fda9c0
+GET http://localhost:3000/wallets/{{ walletId }}
 
 ###
 POST http://localhost:3000/wallets/{{ walletId }}/assets
@@ -38,7 +73,7 @@ Content-Type: application/json
 
 {
   "assetId": "{{ assetId }}",
-  "shares": 80
+  "shares": 100
 }
 
 ###
