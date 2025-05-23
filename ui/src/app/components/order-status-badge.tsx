@@ -23,5 +23,5 @@ export function OrderStatusBadge({ status }: OrderStatusBadgeProps) {
       break;
   }
 
-  return <Badge color={color} className="w-fit">{status.toLowerCase()}</Badge>
+  return <Badge color={color} className="w-fit shadow-md">{status}</Badge>
 }

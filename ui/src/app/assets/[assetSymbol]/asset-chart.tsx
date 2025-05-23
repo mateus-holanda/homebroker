@@ -1,6 +1,6 @@
 "use client";
 
-import { AssetBox } from "@/app/components/asset-box";
+import { AssetContainer } from "@/app/components/asset-container";
 import { Chart, ChartComponentRef } from "@/app/components/chart";
 import { Asset } from "@/models";
 import { useRef } from "react";
@@ -12,5 +12,5 @@ interface AssetChartProps {
 export function AssetChart({ asset }: AssetChartProps) {
   const chartRef = useRef<ChartComponentRef>(null);
 
-  return <Chart ref={chartRef} header={<AssetBox asset={asset} />} />
+  return <Chart ref={chartRef} header={<AssetContainer asset={asset} />} />
 }

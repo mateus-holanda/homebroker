@@ -8,7 +8,7 @@ import {
   TableRow
 } from "flowbite-react";
 import Link from "next/link";
-import { AssetBox } from "./components/asset-box";
+import { AssetContainer } from "./components/asset-container";
 import { WalletList } from "./components/wallet-list";
 import { getMyWallet } from "./queries/queries";
 
@@ -39,8 +39,8 @@ export default async function MyWalletPage({ searchParams }: MyWalletPageProps) 
           <TableHead>
             <TableHeadCell>Asset</TableHeadCell>
             <TableHeadCell>Price</TableHeadCell>
-            <TableHeadCell>Quantity</TableHeadCell>
-            <TableHeadCell>Buy/Sell</TableHeadCell>
+            <TableHeadCell>Shares</TableHeadCell>
+            <TableHeadCell>Buy / Sell</TableHeadCell>
           </TableHead>
           <TableBody className="border">
             {wallet.assets.map((walletAsset, key) => (
@@ -49,7 +49,7 @@ export default async function MyWalletPage({ searchParams }: MyWalletPageProps) 
                 className="rounded-lg border shadow-sm hover:bg-slate-50"
               >
                 <TableCell>
-                  <AssetBox asset={walletAsset.asset} />
+                  <AssetContainer asset={walletAsset.asset} />
                 </TableCell>
                 <TableCell>${walletAsset.asset.price}</TableCell>
                 <TableCell>{walletAsset.shares}</TableCell>
@@ -58,6 +58,7 @@ export default async function MyWalletPage({ searchParams }: MyWalletPageProps) 
                     as={Link}
                     href={`/assets/${walletAsset.asset.symbol}?wallet_id=${walletId}`}
                     color="light"
+                    className="w-fit shadow-md"
                   >
                     Buy/Sell
                   </Button>

@@ -1,5 +1,6 @@
 import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
-import { AssetBox } from "../components/asset-box";
+import Link from "next/link";
+import { AssetContainer } from "../components/asset-container";
 import { WalletList } from "../components/wallet-list";
 import { getAssets, getMyWallet } from "../queries/queries";
 
@@ -32,17 +33,24 @@ export default async function AssetsPages({ searchParams }: AssetsPageProps) {
           <TableHead>
             <TableHeadCell>Asset</TableHeadCell>
             <TableHeadCell>Price</TableHeadCell>
-            <TableHeadCell>Buy/Sell</TableHeadCell>
+            <TableHeadCell>Buy / Sell</TableHeadCell>
           </TableHead>
           <TableBody className="border">
             {assets.map((asset, key) => (
               <TableRow key={`${asset._id}-${key}`} className="rounded-lg border shadow-sm hover:bg-slate-50">
                 <TableCell>
-                  <AssetBox asset={asset} />
+                  <AssetContainer asset={asset} />
                 </TableCell>
                 <TableCell>${asset.price}</TableCell>
                 <TableCell>
-                  <Button color="light">Buy/Sell</Button>
+                  <Button
+                    as={Link}
+                    href={`/assets/${asset.symbol}?wallet_id=${walletId}`}
+                    color="light"
+                    className="w-fit shadow-md"
+                  >
+                    Buy/Sell
+                  </Button>
                 </TableCell>
               </TableRow>
               ))}

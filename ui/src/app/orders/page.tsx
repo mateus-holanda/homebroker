@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
-import { AssetBox } from "../components/asset-box";
+import { AssetContainer } from "../components/asset-container";
 import { OrderStatusBadge } from "../components/order-status-badge";
 import { OrderTypeBadge } from "../components/order-type-badge";
 import { WalletList } from "../components/wallet-list";
@@ -34,7 +34,7 @@ export default async function OrdersPages({ searchParams }: OrdersPageProps) {
           <TableHead>
             <TableHeadCell>Asset</TableHeadCell>
             <TableHeadCell>Price</TableHeadCell>
-            <TableHeadCell>Quantity</TableHeadCell>
+            <TableHeadCell>Shares</TableHeadCell>
             <TableHeadCell>Type</TableHeadCell>
             <TableHeadCell>Status</TableHeadCell>
           </TableHead>
@@ -42,7 +42,7 @@ export default async function OrdersPages({ searchParams }: OrdersPageProps) {
             {orders.map((order, key) => (
               <TableRow key={`${order._id}-${key}`} className="rounded-lg border shadow-sm hover:bg-slate-50">
                 <TableCell>
-                  <AssetBox asset={order.asset} />
+                  <AssetContainer asset={order.asset} />
                 </TableCell>
                 <TableCell>${order.asset.price}</TableCell>
                 <TableCell>{order.shares}</TableCell>

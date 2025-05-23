@@ -9,9 +9,9 @@ export function OrderTypeBadge({ type }: OrderTypeBadgeProps) {
   return (
     <Badge
       color={type === OrderType.BUY ? 'blue' : 'red'}
-      className="w-fit"
+      className="w-fit shadow-md"
     >
-      {type.toLowerCase()}
+      {type}
     </Badge>
   )
 }

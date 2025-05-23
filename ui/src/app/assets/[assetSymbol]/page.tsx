@@ -1,4 +1,4 @@
-import { AssetBox } from "@/app/components/asset-box";
+import { AssetContainer } from "@/app/components/asset-container";
 import { OrderForm } from "@/app/components/order-form";
 import { TabsItem } from "@/app/components/tabs";
 import { WalletList } from "@/app/components/wallet-list";
@@ -31,7 +31,7 @@ export default async function AssetDashboardPage({ params, searchParams }: Asset
   return (
     <div className="flex flex-col space-y-5 flex-grow">
       <div className="flex flex-col space-y-2">
-        <AssetBox asset={asset} />
+        <AssetContainer asset={asset} />
         <div className="ml-2 font-bold text-2xl">${asset.price}</div>
       </div>
       <div className="grid grid-cols-5 flex-grow gap-2">

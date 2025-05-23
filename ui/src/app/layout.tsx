@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ToastContainer } from "react-toastify";
 import Navbar from "./components/navbar";
 import "./globals.css";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
         <div className="container mx-auto px-4 py-8 flex flex-grow">
           {children}
         </div>
+        <ToastContainer />
       </body>
     </html>
   );

@@ -1,5 +1,10 @@
-import { Asset, OrderType } from "@/models";
+"use client";
+
+import { Asset, Order, OrderType } from "@/models";
+import { socket } from "@/socket-io";
 import { Button, Label, TextInput } from "flowbite-react";
+import { FormEvent } from "react";
+import { toast } from "react-toastify";
 
 interface OrderFormProps {
   walletId: string;
@@ -10,8 +15,23 @@ interface OrderFormProps {
 export function OrderForm({ walletId, asset, type }: OrderFormProps) {
   const color = type === OrderType.BUY ? 'text-blue-700' : 'text-red-700';
 
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    socket.connect();
+    const newOrder: Order = await socket.emitWithAck("orders/create", data);
+
+    toast(
+      `Order of type ${newOrder.type} of ${newOrder.shares} ${asset.symbol} shares created successfully!`,
+      { type: "success", theme: "colored", position: "top-right" },
+    );
+  }
+
   return (
-    <form action="">
+    <form onSubmit={onSubmit}>
       <input type="hidden" name="walletId" defaultValue={walletId} />
       <input type="hidden" name="assetId" defaultValue={asset._id} />
       <input type="hidden" name="type" defaultValue={type} />
@@ -47,7 +67,11 @@ export function OrderForm({ walletId, asset, type }: OrderFormProps) {
         />
       </div>
       <br />
-      <Button type="submit" color={type === OrderType.BUY ? 'blue' : 'failure'}>
+      <Button
+        type="submit"
+        className="shadow-md"
+        color={type === OrderType.BUY ? 'blue' : 'failure'}
+      >
         {type}
       </Button>
     </form>

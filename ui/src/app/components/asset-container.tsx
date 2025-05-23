@@ -1,11 +1,11 @@
 import { Asset } from "@/models";
 import Image from "next/image";
 
-interface AssetBoxProps {
+interface AssetContainerProps {
   asset: Asset
 }
 
-export function AssetBox({ asset }: AssetBoxProps) {
+export function AssetContainer({ asset }: AssetContainerProps) {
   return (
     <div className="flex space-x-2 items-center">
       <div className="content-center">
