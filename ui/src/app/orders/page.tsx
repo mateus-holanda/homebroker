@@ -1,20 +1,27 @@
-import { Order } from "@/models";
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 import { AssetBox } from "../components/asset-box";
 import { OrderStatusBadge } from "../components/order-status-badge";
 import { OrderTypeBadge } from "../components/order-type-badge";
+import { WalletList } from "../components/wallet-list";
+import { getMyWallet, getOrders } from "../queries/queries";
 
 interface OrdersPageProps {
   searchParams: Promise<{ wallet_id: string}>;
 };
 
-export async function getOrders(walletId: string): Promise<Order[]> {
-  const response = await fetch(`http://localhost:3000/orders?walletId=${walletId}`);
-  return response.json();
-}
-
 export default async function OrdersPages({ searchParams }: OrdersPageProps) {
   const { wallet_id: walletId } = await searchParams;
+    
+  if (!walletId) {
+    return <WalletList />;
+  }
+
+  const wallet = await getMyWallet(walletId);
+
+  if (!wallet) {
+    return <WalletList />;
+  }
+
   const orders = await getOrders(walletId);
 
   return (
