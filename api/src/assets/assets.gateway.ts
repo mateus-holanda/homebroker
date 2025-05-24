@@ -4,11 +4,11 @@ import {
   SubscribeMessage,
   WebSocketGateway,
 } from '@nestjs/websockets';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { AssetPresenter } from './asset.presenter';
 import { AssetsService } from './assets.service';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true })
 export class AssetsGateway implements OnGatewayInit {
   constructor(private assetsService: AssetsService) {}
 
@@ -23,38 +23,38 @@ export class AssetsGateway implements OnGatewayInit {
   }
 
   @SubscribeMessage('joinAssets')
-  handleJoinAssets(client: any, payload: { symbols: string[] }) {
+  async handleJoinAssets(client: Socket, payload: { symbols: string[] }) {
     if (!payload.symbols?.length) {
       return;
     }
 
-    payload.symbols.forEach((symbol) => client.join(symbol));
+    await Promise.all(payload.symbols.map((symbol) => client.join(symbol)));
     this.logger.log(
       `Client ${client.id} joined assets ${payload.symbols.join(', ')}`,
     );
   }
 
   @SubscribeMessage('joinAsset')
-  handleJoinAsset(client: any, payload: { symbol: string }) {
-    client.join(payload.symbol);
+  async handleJoinAsset(client: Socket, payload: { symbol: string }) {
+    await client.join(payload.symbol);
     this.logger.log(`Client ${client.id} joined asset ${payload.symbol}`);
   }
 
   @SubscribeMessage('leaveAssets')
-  handleLeaveAssets(client: any, payload: { symbols: string[] }) {
+  async handleLeaveAssets(client: Socket, payload: { symbols: string[] }) {
     if (!payload.symbols?.length) {
       return;
     }
 
-    payload.symbols.forEach((symbol) => client.leave(symbol));
+    await Promise.all(payload.symbols.map((symbol) => client.leave(symbol)));
     this.logger.log(
       `Client ${client.id} left assets ${payload.symbols.join(', ')}`,
     );
   }
 
   @SubscribeMessage('leaveAsset')
-  handleLeaveAsset(client: any, payload: { symbol: string }) {
-    client.leave(payload.symbol);
+  async handleLeaveAsset(client: Socket, payload: { symbol: string }) {
+    await client.leave(payload.symbol);
     this.logger.log(`Client ${client.id} left asset ${payload.symbol}`);
   }
 }
