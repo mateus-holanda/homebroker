@@ -55,6 +55,18 @@ GET http://localhost:3000/assets
 GET http://localhost:3000/assets/AMZN
 
 ###
+POST http://localhost:3000/assets/AMZN/daily
+Content-Type: application/json
+
+{
+  "date": "2025-05-01",
+  "price": 100
+}
+
+###
+GET http://localhost:3000/assets/AMZN/daily
+
+###
 # @name createWallet
 POST http://localhost:3000/wallets
 

@@ -4,7 +4,8 @@ import { TabsItem } from "@/app/components/tabs";
 import { WalletList } from "@/app/components/wallet-list";
 import { OrderType } from "@/models";
 import { Card, Tabs } from "flowbite-react";
-import { getAsset, getMyWallet } from "../../queries/queries";
+import { Time } from "lightweight-charts";
+import { getAsset, getAssetsDaily, getMyWallet } from "../../queries/queries";
 import { AssetChart } from "./asset-chart";
 
 interface AssetDashboardPageProps {
@@ -27,6 +28,12 @@ export default async function AssetDashboardPage({ params, searchParams }: Asset
 
   const { assetSymbol } = await params;
   const asset = await getAsset(assetSymbol);
+  const assetsDaily = await getAssetsDaily(assetSymbol);
+
+  const chartData = assetsDaily.map((assetDaily) => ({
+    time: (Date.parse(assetDaily.date) / 1000) as Time,
+    value: assetDaily.price,
+  }));
 
   return (
     <div className="flex flex-col space-y-5 flex-grow">
@@ -48,7 +55,7 @@ export default async function AssetDashboardPage({ params, searchParams }: Asset
           </Card>
         </div>
         <div className="col-span-3 flex flex-grow">
-          <AssetChart asset={asset} />
+          <AssetChart asset={asset} data={chartData} />
         </div>
       </div>
     </div>

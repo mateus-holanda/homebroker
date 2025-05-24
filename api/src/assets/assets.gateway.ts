@@ -5,12 +5,17 @@ import {
   WebSocketGateway,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { AssetDailyPresenter } from './asset-daily.presenter';
 import { AssetPresenter } from './asset.presenter';
+import { AssetsDailyService } from './assets-daily.service';
 import { AssetsService } from './assets.service';
 
 @WebSocketGateway({ cors: true })
 export class AssetsGateway implements OnGatewayInit {
-  constructor(private assetsService: AssetsService) {}
+  constructor(
+    private assetsService: AssetsService,
+    private assetsDailyService: AssetsDailyService,
+  ) {}
 
   logger = new Logger(AssetsGateway.name);
 
@@ -19,6 +24,15 @@ export class AssetsGateway implements OnGatewayInit {
       server
         .to(asset.symbol)
         .emit('assets/price-change', new AssetPresenter(asset).toJSON());
+    });
+
+    this.assetsDailyService.subscribeCreateEvents().subscribe((assetDaily) => {
+      server
+        .to(assetDaily.asset.symbol)
+        .emit(
+          'assets/daily-create',
+          new AssetDailyPresenter(assetDaily).toJSON(),
+        );
     });
   }
 
