@@ -59,8 +59,8 @@ POST http://localhost:3000/assets/AMZN/daily
 Content-Type: application/json
 
 {
-  "date": "2025-05-01",
-  "price": 100
+  "date": "2025-05-21",
+  "price": 110
 }
 
 ###
