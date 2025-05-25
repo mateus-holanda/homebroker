@@ -6,9 +6,9 @@ type Asset struct {
 	MarketVolume int
 }
 
-func NewAsset(id, name string, marketVolume int) *Asset {
+func NewAsset(AssetID, name string, marketVolume int) *Asset {
 	return &Asset{
-		ID:           id,
+		ID:           AssetID,
 		Name:         name,
 		MarketVolume: marketVolume,
 	}
