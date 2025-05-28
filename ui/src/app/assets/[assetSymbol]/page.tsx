@@ -1,4 +1,7 @@
+import { AssetChart } from "@/app/components/asset-chart";
 import { AssetContainer } from "@/app/components/asset-container";
+import { AssetPrice } from "@/app/components/asset-price";
+import { AssetsSync } from "@/app/components/assets-sync";
 import { OrderForm } from "@/app/components/order-form";
 import { TabsItem } from "@/app/components/tabs";
 import { WalletList } from "@/app/components/wallet-list";
@@ -6,7 +9,6 @@ import { OrderType } from "@/models";
 import { Card, Tabs } from "flowbite-react";
 import { Time } from "lightweight-charts";
 import { getAsset, getAssetsDaily, getMyWallet } from "../../queries/queries";
-import { AssetChart } from "./asset-chart";
 
 interface AssetDashboardPageProps {
   params: Promise<{ assetSymbol: string }>;
@@ -39,6 +41,7 @@ export default async function AssetDashboardPage({ params, searchParams }: Asset
     <div className="flex flex-col space-y-5 flex-grow">
       <div className="flex flex-col space-y-2">
         <AssetContainer asset={asset} />
+        <AssetPrice asset={asset} />
         <div className="ml-2 font-bold text-2xl">${asset.price}</div>
       </div>
       <div className="grid grid-cols-5 flex-grow gap-2">
@@ -58,6 +61,7 @@ export default async function AssetDashboardPage({ params, searchParams }: Asset
           <AssetChart asset={asset} data={chartData} />
         </div>
       </div>
+      <AssetsSync assetsSymbols={[asset.symbol]} />
     </div>
   )
 }

@@ -11,14 +11,8 @@ import { Asset, AssetSchema } from './entities/asset.entity';
 @Module({
   imports: [
     MongooseModule.forFeature([
-      {
-        name: Asset.name,
-        schema: AssetSchema,
-      },
-      {
-        name: AssetDaily.name,
-        schema: AssetDailySchema,
-      },
+      { name: Asset.name, schema: AssetSchema },
+      { name: AssetDaily.name, schema: AssetDailySchema },
     ]),
   ],
   controllers: [AssetsController, AssetsDailyController],
